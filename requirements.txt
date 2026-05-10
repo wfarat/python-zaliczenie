@@ -1,0 +1,5 @@
+streamlit~=1.57.0
+pandas~=3.0.2
+seaborn~=0.13.2
+matplotlib~=3.10.9
+kagglehub~=1.0.1
