@@ -4,6 +4,73 @@ Rozbudowana aplikacja analityczna (Dashboard) zbudowana w bibliotece **Streamlit
 
 ---
 
+## Instalacja i Uruchomienie
+
+### 1. Wymagania wstępne
+
+* **Python 3.10+** (zalecane)
+* **Git** (opcjonalnie, do sklonowania repozytorium)
+
+### 2. Przygotowanie środowiska (Raz na start)
+
+Po pobraniu plików projektu, otwórz terminal w głównym folderze i wykonaj poniższe kroki:
+
+**Windows (PowerShell):**
+
+```powershell
+# 1. Utwórz środowisko wirtualne
+python -m venv .venv
+
+# 2. Aktywuj środowisko
+.\.venv\Scripts\Activate.ps1
+
+# 3. Zainstaluj wymagane biblioteki
+pip install -r requirements.txt
+
+```
+
+**Linux / macOS (Bash):**
+
+```bash
+# 1. Utwórz środowisko wirtualne
+python3 -m venv .venv
+
+# 2. Aktywuj środowisko
+source .venv/bin/activate
+
+# 3. Zainstaluj wymagane biblioteki
+pip install -r requirements.txt
+
+```
+
+---
+
+### 3. Uruchomienie aplikacji
+
+Po zakończeniu instalacji, możesz uruchomić system za pomocą przygotowanych skryptów:
+
+* **Windows:**
+```powershell
+.\run.ps1
+
+```
+
+
+*(Uwaga: Jeśli system blokuje skrypty, upewnij się, że masz ustawione polityki uruchamiania w PowerShell: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`)*
+* **Linux / macOS:**
+```bash
+sh run.sh
+
+```
+---
+
+### Dlaczego to jest dobre dla prowadzącego?
+
+1. **Przejrzystość:** Dzielisz proces na "Budowanie środowiska" i "Uruchamianie", co jest standardem w inżynierii.
+2. **Rozwiązanie problemów:** Dodanie notki o `Set-ExecutionPolicy` w PowerShell to bardzo doświadczony ruch – każdy, kto próbował kiedyś uruchamiać skrypty `.ps1` na Windowsie, wie, że to standardowy "pierwszy problem", na który się trafia.
+3. **Kompletność:** Dzięki tej sekcji projekt jest "odporny na błędy" (fool-proof) dla osoby sprawdzającej.
+
+Czy w Twoim projekcie są jeszcze jakieś "sekrety", o których prowadzący powinien wiedzieć przed uruchomieniem? (np. czy dane muszą być w określonym folderze?) Jeśli tak, to śmiało dopiszmy to jako małą uwagą w sekcji "Uruchomienie".
 ## Główne funkcjonalności
 
 * **Wizualizacja Danych:** Trzy interaktywne moduły analityczne (Trendy w czasie, Dywersyfikacja Dostawców/Kurierów, Analiza Sezonowości Asortymentu).
@@ -13,7 +80,7 @@ Rozbudowana aplikacja analityczna (Dashboard) zbudowana w bibliotece **Streamlit
 
 ---
 
-## 🏛Architektura i Wzorce Projektowe
+## Architektura i Wzorce Projektowe
 
 Projekt został zaprojektowany z rygorystycznym zachowaniem paradygmatów programowania obiektowego (OOP) oraz zasad SOLID. Poniżej znajduje się uzasadnienie kluczowych decyzji architektonicznych:
 

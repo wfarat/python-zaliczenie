@@ -1,52 +1,38 @@
 import os
 from llama_cpp import Llama
 
+from llama_cpp import Llama
+
 
 class AIManager:
-    """
-    Klasa Singleton do zarządzania komunikacją z lokalnym modelem AI.
-    """
     _instance = None
-    is_ready = False
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super(AIManager, cls).__new__(cls)
-
-            try:
-                cls._instance._initialize_model()
-            except Exception as e:
-                print(f"Krytyczny błąd podczas inicjalizacji AI: {e}")
-                cls._instance.is_ready = False
+            cls._instance.llm = None
+            cls._instance.is_ready = False
         return cls._instance
 
-    def _initialize_model(self):
-        """Prywatna metoda inicjalizująca model GGUF."""
-        self.is_ready = False  # Upewniamy się, że startujemy z poziomu False
-
-        self.model_path = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), '..', 'models', 'qwen2.5-3b-instruct-q4_k_m.gguf'))
-
-        if not os.path.exists(self.model_path):
-            print(f"Błąd: Nie znaleziono modelu w ścieżce: {self.model_path}")
+    def load_model(self):
+        """Pobiera i ładuje model do pamięci na wyraźne żądanie użytkownika."""
+        if self.is_ready:
             return
 
-        print("Ładowanie modelu AI do pamięci...")
-
-        # 3. ZMIANA: Przechwytujemy błędy samej biblioteki llama.cpp
         try:
-            self.llm = Llama(
-                model_path=self.model_path,
-                n_ctx=2048,  # Zostawiamy 2048
-                n_batch=2048,  # NOWE: Zmusza silnik do zjedzenia całego promptu na raz!
+            self.llm = Llama.from_pretrained(
+                repo_id="Qwen/Qwen2.5-3B-Instruct-GGUF",
+                filename="qwen2.5-3b-instruct-q4_k_m.gguf",
+                n_ctx=2048,
+                n_batch=2048,
                 n_gpu_layers=0,
-                chat_format="chatml",  # Przywracamy, Qwen tego potrzebuje
-                verbose=False  # Wyłączamy logi, żeby nie śmieciły w konsoli
+                chat_format="chatml",
+                verbose=False
             )
             self.is_ready = True
-            print("Zainicjalizowano model AI pomyślnie.")
+            print("Model AI wczytany i gotowy do pracy.")
         except Exception as e:
-            print(f"Błąd silnika Llama: {e}")
+            print(f"Błąd inicjalizacji modelu AI: {e}")
             self.is_ready = False
 
     def get_insights(self, data_summary: str, system_prompt: str) -> str:

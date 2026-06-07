@@ -90,14 +90,17 @@ class TopSuppliersStrategy(VisualizationStrategy):
         transfers = df_copy['RETAIL TRANSFERS'] if 'RETAIL TRANSFERS' in df_copy.columns else 0
         df_copy['TOTAL VOLUME'] = df_copy['RETAIL SALES'] + df_copy['WAREHOUSE SALES'] + transfers
 
-        top_10 = df_copy.groupby('SUPPLIER')['TOTAL VOLUME'].sum().nlargest(10).index
-        top_data = df_copy[df_copy['SUPPLIER'].isin(top_10)]
+        total_vol_df = df_copy.groupby('SUPPLIER')['TOTAL VOLUME'].sum().reset_index()
+        top_10_suppliers = total_vol_df.nlargest(10, 'TOTAL VOLUME')
 
-        ai_stats = top_data.groupby(['SUPPLIER', 'ITEM TYPE'])['TOTAL VOLUME'].sum().reset_index()
-        ai_stats = ai_stats.sort_values(['SUPPLIER', 'TOTAL VOLUME'], ascending=[True, False]).groupby(
+        top_data = df_copy[df_copy['SUPPLIER'].isin(top_10_suppliers['SUPPLIER'])]
+        cat_vol_df = top_data.groupby(['SUPPLIER', 'ITEM TYPE'])['TOTAL VOLUME'].sum().reset_index()
+
+        top_categories = cat_vol_df.sort_values(['SUPPLIER', 'TOTAL VOLUME'], ascending=[True, False]).groupby(
             'SUPPLIER').first().reset_index()
-        ai_stats = ai_stats.rename(columns={'ITEM TYPE': 'TOP CATEGORY'})
-        ai_stats = ai_stats.sort_values(by='TOTAL VOLUME', ascending=False)
 
-        data_summary = f"Statystyki Top 10 {entity['plural']} (Całkowity Wolumen i ich Najsilniejsza Kategoria):\n{ai_stats.to_string()}"
+        ai_stats = pd.merge(top_10_suppliers, top_categories[['SUPPLIER', 'ITEM TYPE']], on='SUPPLIER')
+        ai_stats = ai_stats.rename(columns={'ITEM TYPE': 'TOP CATEGORY'})
+
+        data_summary = f"Statystyki Top 10 {entity['plural']} (Całkowity Wolumen i ich Najsilniejsza Kategoria):\n{ai_stats.to_string(index=False)}"
         return system_prompt, data_summary
