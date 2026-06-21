@@ -13,33 +13,18 @@ Rozbudowana aplikacja analityczna (Dashboard) zbudowana w bibliotece **Streamlit
 
 ### 2. Przygotowanie środowiska (Raz na start)
 
-Po pobraniu plików projektu, otwórz terminal w głównym folderze i wykonaj poniższe kroki:
+Po pobraniu plików projektu, otwórz terminal w głównym folderze i wykonaj poniższe kroki:  
 
 **Windows (PowerShell):**
-
 ```powershell
-# 1. Utwórz środowisko wirtualne
-python -m venv .venv
-
-# 2. Aktywuj środowisko
-.\.venv\Scripts\Activate.ps1
-
-# 3. Zainstaluj wymagane biblioteki
-pip install -r requirements.txt
+./run.ps1
 
 ```
 
 **Linux / macOS (Bash):**
 
 ```bash
-# 1. Utwórz środowisko wirtualne
-python3 -m venv .venv
-
-# 2. Aktywuj środowisko
-source .venv/bin/activate
-
-# 3. Zainstaluj wymagane biblioteki
-pip install -r requirements.txt
+./run.sh
 
 ```
 
