@@ -64,13 +64,6 @@ sh run.sh
 ```
 ---
 
-### Dlaczego to jest dobre dla prowadzącego?
-
-1. **Przejrzystość:** Dzielisz proces na "Budowanie środowiska" i "Uruchamianie", co jest standardem w inżynierii.
-2. **Rozwiązanie problemów:** Dodanie notki o `Set-ExecutionPolicy` w PowerShell to bardzo doświadczony ruch – każdy, kto próbował kiedyś uruchamiać skrypty `.ps1` na Windowsie, wie, że to standardowy "pierwszy problem", na który się trafia.
-3. **Kompletność:** Dzięki tej sekcji projekt jest "odporny na błędy" (fool-proof) dla osoby sprawdzającej.
-
-Czy w Twoim projekcie są jeszcze jakieś "sekrety", o których prowadzący powinien wiedzieć przed uruchomieniem? (np. czy dane muszą być w określonym folderze?) Jeśli tak, to śmiało dopiszmy to jako małą uwagą w sekcji "Uruchomienie".
 ## Główne funkcjonalności
 
 * **Wizualizacja Danych:** Trzy interaktywne moduły analityczne (Trendy w czasie, Dywersyfikacja Dostawców/Kurierów, Analiza Sezonowości Asortymentu).
